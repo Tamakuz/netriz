@@ -8,10 +8,8 @@ chromium.use(StealthPlugin());
 
 const ACCOUNTS = [
   { email: "riztama1224@gmail.com", password: "plislucu1224" },
-  { email: "panjij0987@gmail.com", password: "seriusya1224" },
-  { email: "rismamingyulina21@gmail.com", password: "apaiya26" },
   { email: "morphchrono@gmail.com", password: "terlalunyaman1224" },
-  { email: "jovanpolitama@gmail.com", password: "kudahitam1224" },
+  { email: "rismamingyulina21@gmail.com", password: "apaiya26" }
 ];
 
 function ask(query: string): Promise<string> {
@@ -37,8 +35,8 @@ function getStatePath(email: string): string {
 
 async function isSomethingWentWrong(page: any): Promise<boolean> {
   const bodyText = await page.locator('body').innerText().catch(() => '');
-  return bodyText.includes('Something went wrong. Please try again in a few minutes') || 
-         bodyText.includes('Something went wrong. Please try again in a few minutes.');
+  return bodyText.includes('Something went wrong. Please try again in a few minutes') ||
+    bodyText.includes('Something went wrong. Please try again in a few minutes.');
 }
 
 async function runLoginForAccount(account: typeof ACCOUNTS[0]) {
@@ -165,7 +163,7 @@ async function runLoginForAccount(account: typeof ACCOUNTS[0]) {
         }
 
         const passwordOption = page.getByText('Use password instead', { exact: false }).first();
-        await passwordOption.waitFor({ state: 'visible', timeout: 10_000 }).catch(() => {});
+        await passwordOption.waitFor({ state: 'visible', timeout: 10_000 }).catch(() => { });
         if (await passwordOption.isVisible().catch(() => false)) {
           await passwordOption.click();
           console.log('Clicked "Use password instead"');
@@ -234,14 +232,14 @@ async function runLoginForAccount(account: typeof ACCOUNTS[0]) {
   } catch (err: any) {
     console.error(`Error during login execution: ${err.message}`);
   } finally {
-    await browser.close().catch(() => {});
+    await browser.close().catch(() => { });
   }
 }
 
 async function main() {
   console.log('Netflix Session Generator');
   console.log('=========================');
-  
+
   // Show list of accounts and their status
   for (let i = 0; i < ACCOUNTS.length; i++) {
     const acc = ACCOUNTS[i];
